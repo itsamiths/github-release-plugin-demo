@@ -1,0 +1,54 @@
+<!-- refer https://github.com/cy6erGn0m/github-release-plugin -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.itsamiths.gh</groupId>
+	<artifactId>github-release-plugin-demo</artifactId>
+	<version>0.1</version>
+	<name>GitHub Release Plugin Demo</name>
+	<description>Project that demos github release plugin( https://github.com/cy6erGn0m/github-release-plugin ) usage</description>
+	<scm>
+		<connection>scm:git:git@github.com:itsamiths/github-release-plugin-demo.git</connection>
+		<tag>HEAD</tag>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/mvn-repo</url>
+		</repository>
+	</distributionManagement>
+	<pluginRepositories>
+		<pluginRepository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-cy6ergn0m-maven</id>
+			<name>bintray-plugins</name>
+			<url>http://dl.bintray.com/cy6ergn0m/maven</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>cy.github</groupId>
+				<artifactId>github-release-plugin</artifactId>
+				<version>0.5.1</version>
+				<configuration>
+					<tagName>${project.artifactId}-${project.version}</tagName>
+					<preRelease>false</preRelease>
+					<owner>itsamiths</owner>
+					<repository>github-release-plugin-demo</repository>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>gh-upload</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
